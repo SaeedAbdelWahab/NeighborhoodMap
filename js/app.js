@@ -12,8 +12,6 @@ var locations = [
   {title: 'Chinatown Homey Space', location: {lat: 40.7180628, lng: -73.9961237}}
 ];
 
-
-
 // Create a new blank array for all the listing markers.
 var markers = [];
 
@@ -33,7 +31,6 @@ function viewModel(){
   this.title = data.title;
   this.location = data.location;
   this.marker = null;
-  this.hidden = false;
   };
 
   var self = this;
@@ -84,6 +81,24 @@ function viewModel(){
     bounds.extend(markers[i].position);
   }
   map.fitBounds(bounds);
+
+
+  self.queryText = ko.observable('');
+  self.filteredLocations = ko.observableArray(self.locationList().slice(0));
+  self.filterLocations = function(){
+     self.filteredLocations.removeAll();
+    var search = self.queryText().toUpperCase();
+    for (var i = 0; i < self.locationList().length; i++)
+    {
+      title = self.locationList()[i].title ;
+      self.locationList()[i].marker.setVisible(false);
+      if (title.toUpperCase().indexOf(search) > -1)
+      {
+        self.filteredLocations.push(self.locationList()[i])
+        self.locationList()[i].marker.setVisible(true);
+      }
+    }
+  }
 }
 
 // // This function populates the infowindow when the marker is clicked. We'll only allow

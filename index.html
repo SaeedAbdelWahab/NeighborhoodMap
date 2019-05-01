@@ -9,11 +9,9 @@
     <div class="container_1">
       <div class="options-box">
         <h1>Available locations filter</h1>
-        <input type="text" id="myInput"  placeholder="Search for names.." title="Type in a name">
-          <ul id="myUL" data-bind="foreach: locationList">
-            <div data-bind="ifnot: hidden">
+        <input type="text" id="myInput"  placeholder="Search for names.." data-bind="textInput: queryText, event: {keyup:filterLocations}">
+          <ul id="myUL" data-bind="foreach: filteredLocations">
               <li><a href="#" data-bind="text: title"></a></li>
-            </div>
           </ul>
       </div>
       <div id="map"></div>
