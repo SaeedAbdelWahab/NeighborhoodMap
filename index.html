@@ -11,7 +11,7 @@
         <h1>Available locations filter</h1>
         <input type="text" id="myInput"  placeholder="Search for names.." data-bind="textInput: queryText, event: {keyup:filterLocations}">
           <ul id="myUL" data-bind="foreach: filteredLocations">
-              <li><a href="#" data-bind="text: title"></a></li>
+              <li><a href="#" data-bind="text: title, click: $parent.clickMarker, event: { mouseover: $parent.mouseoverMarker, mouseout: $parent.mouseoutMarker} "></a></li>
           </ul>
       </div>
       <div id="map"></div>

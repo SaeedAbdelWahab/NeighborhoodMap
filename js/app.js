@@ -74,6 +74,20 @@ function viewModel(){
     });
   }
 
+  self.clickMarker =  function(location)
+  {
+    populateInfoWindow(location.marker,self.Infowindow);
+    toggleBounce(location.marker);
+  }
+   self.mouseoverMarker =  function(location)
+  {
+    location.marker.setIcon(self.highLightedIcon);
+  }
+   self.mouseoutMarker =  function(location)
+  {
+    location.marker.setIcon(self.defaultIcon);
+  }
+
   var bounds = new google.maps.LatLngBounds();
   // Extend the boundaries of the map for each marker and display the marker
   for (var i = 0; i < markers.length; i++) {
