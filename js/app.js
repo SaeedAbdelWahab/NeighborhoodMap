@@ -79,10 +79,12 @@ function viewModel(){
     populateInfoWindow(location.marker,self.Infowindow);
     toggleBounce(location.marker);
   }
+
    self.mouseoverMarker =  function(location)
   {
     location.marker.setIcon(self.highLightedIcon);
   }
+
    self.mouseoutMarker =  function(location)
   {
     location.marker.setIcon(self.defaultIcon);
@@ -113,7 +115,10 @@ function viewModel(){
       }
     }
   }
+
 }
+
+
 
 // // This function populates the infowindow when the marker is clicked. We'll only allow
 // // one infowindow which will open at the marker that is clicked, and populate based
