@@ -1,7 +1,6 @@
 
 var map;
 
-
 // These are the real estate listings that will be shown to the user.
 // Normally we'd have these in a database instead.
 var locations = [
@@ -33,6 +32,8 @@ function viewModel(){
   var location = function(data){
   this.title = data.title;
   this.location = data.location;
+  this.marker = null;
+  this.hidden = false;
   };
 
   var self = this;
@@ -44,21 +45,22 @@ function viewModel(){
 
   self.Infowindow = new google.maps.InfoWindow();
 
-  self.locationList = []; // I wont make it an observable because of the instructions
+  self.locationList = ko.observableArray(); // I wont make it an observable because of the instructions
 
   locations.forEach(function(locationItem){
-    self.locationList.push(locationItem)
+    self.locationList.push(new location(locationItem))
   });
   // The following group uses the location array to create an array of markers on initialize.
-  for (var i = 0; i < self.locationList.length; i++) {
+  for (var i = 0; i < self.locationList().length; i++) {
     var marker = new google.maps.Marker({
-      position: self.locationList[i].location,
-      title: self.locationList[i].title,
+      position: self.locationList()[i].location,
+      title: self.locationList()[i].title,
       animation: google.maps.Animation.DROP,
       icon: self.defaultIcon,
       id: i
     });
     markers.push(marker);
+    self.locationList()[i].marker = marker; 
     // Create an onclick event to open the large infowindow at each marker.
     marker.addListener('click', function() {
       populateInfoWindow(this, self.Infowindow);
@@ -78,7 +80,6 @@ function viewModel(){
   var bounds = new google.maps.LatLngBounds();
   // Extend the boundaries of the map for each marker and display the marker
   for (var i = 0; i < markers.length; i++) {
-    console.log(markers.length)
     markers[i].setMap(map);
     bounds.extend(markers[i].position);
   }

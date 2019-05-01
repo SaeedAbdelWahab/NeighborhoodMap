@@ -8,10 +8,13 @@
   <body>
     <div class="container_1">
       <div class="options-box">
-        <h1>Find Your New NYC Home</h1>
-        <div>
-          <!-- <input id="show-listings" type="button" value="Show Listings"> -->
-        </div>
+        <h1>Available locations filter</h1>
+        <input type="text" id="myInput"  placeholder="Search for names.." title="Type in a name">
+          <ul id="myUL" data-bind="foreach: locationList">
+            <div data-bind="ifnot: hidden">
+              <li><a href="#" data-bind="text: title"></a></li>
+            </div>
+          </ul>
       </div>
       <div id="map"></div>
     </div>
