@@ -1,116 +1,107 @@
-html,
-body {
-  font-family: Arial, sans-serif;
-  height: 100%;
-  margin: 0;
-  padding: 0;
+html, body {
+     font-family: Arial, sans-serif;
+     height: 100%;
+     margin: 0;
+     padding: 0;
 }
-.container_1 {
-  height: 100%;
-  position: relative;
+ .container_1 {
+     height: 100%;
+     position: relative;
 }
-input {
-  font-size: 12px;
+ input {
+     font-size: 12px;
 }
-h1 {
-  text-align: center;
+ h1 {
+     text-align: center;
 }
-#map {
-  bottom:0px;
-  height: 100%;
-  left: 0px;
-  /*position: absolute;*/
-  right: 0px;
+ #map {
+     bottom:0px;
+     height: 100%;
+     left: 0px;
+    /*position: absolute;
+    */
+     right: 0px;
 }
-
-#myInput {
-  background-image: url('css/searchicon.png');
-  background-position: 10px 12px;
-  background-repeat: no-repeat;
-  width: 100%;
-  text-align: center;
-  font-size: 16px;
-  padding: 12px 20px 12px 40px;
-  border: 1px solid #ddd;
-  margin-bottom: 12px;
+ #myInput {
+     background-image: url('css/searchicon.png');
+     background-position: 10px 12px;
+     background-repeat: no-repeat;
+     width: 100%;
+     text-align: center;
+     font-size: 16px;
+     padding: 12px 20px 12px 40px;
+     border: 1px solid #ddd;
+     margin-bottom: 12px;
 }
-
-#myUL {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
+ #myUL {
+     list-style-type: none;
+     padding: 0;
+     margin: 0;
 }
-
-#myUL li a {
-  border: 1px solid #ddd;
-  margin-top: -1px; /* Prevent double borders */
-  background-color: #f6f6f6;
-  padding: 12px;
-  text-decoration: none;
-  font-size: 18px;
-  color: black;
-  display: block
+ #myUL li a {
+     border: 1px solid #ddd;
+     margin-top: -1px;
+    /* Prevent double borders */
+     background-color: #f6f6f6;
+     padding: 12px;
+     text-decoration: none;
+     font-size: 18px;
+     color: black;
+     display: block 
 }
-
-#myUL li a:hover:not(.header) {
-  background-color: #eee;
+ #myUL li a:hover:not(.header) {
+     background-color: #eee;
 }
-
-.sidenav {
-  height: 100%;
-  width: 350px;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  background-color: #111;
-  overflow-x: hidden;
-  transition: 0.5s;
-  padding-top: 60px;
+ .sidenav {
+     height: 100%;
+     width: 350px;
+     position: fixed;
+     z-index: 1;
+     top: 0;
+     left: 0;
+     background-color: #111;
+     overflow-x: hidden;
+     transition: 0.5s;
+     padding-top: 60px;
 }
-
-.sidenav a:hover{
- background-color: white;
-  cursor: pointer; 
+ .sidenav a:hover{
+     background-color: white;
+     cursor: pointer;
 }
-
-.sidenav .closebtn {
-  position: absolute;
-  top: 0;
-  right: 25px;
-  font-size: 36px;
-  margin-left: 50px;
+ .sidenav .closebtn {
+     position: absolute;
+     top: 0;
+     right: 25px;
+     font-size: 36px;
+     margin-left: 50px;
 }
-
-
-
-@media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
+ @media screen and (max-height: 450px) {
+     .sidenav {
+        padding-top: 15px;
+    }
+     .sidenav a {
+        font-size: 18px;
+    }
 }
-
-.toolbar {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  overflow: hidden;
-  background-color: black;
+ .toolbar {
+     list-style-type: none;
+     margin: 0;
+     padding: 0;
+     overflow: hidden;
+     background-color: black;
 }
-
-.toolbarli {
-  float: left;
+ .toolbarli {
+     float: left;
 }
-
-.toolbarai {
-  display: block;
-  color: white;
-  text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
-  background-color: white;
+ .toolbarai {
+     display: block;
+     color: white;
+     text-align: center;
+     padding: 14px 16px;
+     text-decoration: none;
+     background-color: white;
 }
-
-.toolbarai:hover {
-  background-color: white;
-  cursor: pointer;
+ .toolbarai:hover {
+     background-color: white;
+     cursor: pointer;
 }
