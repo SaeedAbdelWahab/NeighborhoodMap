@@ -8,42 +8,42 @@ var locations = [{
         lat: 30.072979,
         lng: 31.34605
     },
-    place_id: "ChIJo0ecE_gVWBQRGGrouhZFdME"
+    place_id: "4b853e48f964a520845231e3"
 }, {
     title: 'Tivoli Plaza',
     location: {
         lat: 30.0783231,
         lng: 31.347713
     },
-    place_id: "ChIJl_chzwU-WBQROiVeNErO5aM"
+    place_id: "5ae4db87d48ec1002bb85ee1"
 }, {
     title: 'Mentor Graphics',
     location: {
         lat: 30.0894228,
         lng: 31.3411118
     },
-    place_id: "ChIJzbfH3PcVWBQR-fSB6t2GGtU"
+    place_id: "4e53fc81aeb74b74581e1ae1"
 }, {
     title: 'City Center',
     location: {
         lat: 30.0682644,
         lng: 31.3446851
     },
-    place_id: "ChIJa31qzKhHWBQR9KlOjzqX0iM"
+    place_id: "4bd9d7493904a5936cd4439e"
 }, {
     title: 'Genena Mall',
     location: {
         lat: 30.0598106197085,
         lng: 31.3306754197085
     },
-    place_id: 'ChIJa_i0F2g-WBQRr7xwkbhUzpw'
+    place_id: '4d3c8a60d2c8f04d20926272'
 }, {
     title: 'Tiba Mall',
     location: {
         lat: 30.0675274,
         lng: 31.33007409999999
     },
-    place_id: 'ChIJj1eMyEE-WBQRqOFFesZ-c7o'
+    place_id: '4e31e68cb0fbb985a508ee47'
 }];
 
 // Create a new blank array for all the listing markers.
@@ -98,7 +98,7 @@ function viewModel() {
         self.locationList()[i].marker = marker;
         // Create an onclick event to open the large infowindow at each marker.
         marker.addListener('click', function() {
-            getPlacesDetails(this, self.Infowindow);
+            getPlacesDetailFourSquare(this, self.Infowindow);
             toggleBounce(this);
         });
 
@@ -113,7 +113,7 @@ function viewModel() {
     }
 
     self.clickMarker = function(location) {
-        getPlacesDetails(location.marker, self.Infowindow);
+        getPlacesDetailFourSquare(location.marker, self.Infowindow);
         toggleBounce(location.marker);
     }
 
@@ -157,50 +157,37 @@ function viewModel() {
 
 }
 
-function getPlacesDetails(marker, infowindow) {
-    var service = new google.maps.places.PlacesService(map);
-    service.getDetails({
-        placeId: marker.id
-    }, function(place, status) {
-        if (status === google.maps.places.PlacesServiceStatus.OK) {
-            // Set the marker property on this infowindow so it isn't created again.
+function getPlacesDetailFourSquare(marker, infowindow){
+    $.ajax({
+            url: 'https://api.foursquare.com/v2/venues/' + marker.id +
+            '?client_id=GPOV5WFOZHMLYRMKWCQO3P1EIWKXDE3ZJLW3MFLDULUJM3JT&client_secret=K2EW5RRMH3INMKGO3DCRY2HQ1DEAB4ZP2LACTGNY2RNFZQZL&v=20190320',
+            dataType: "json"
+        }).done(function (data) {
+            var details = data.response.venue;
+            var phone = details.hasOwnProperty("contact") ? details.contact.phone : "No info available";
+            var hours = details.hasOwnProperty("hours") ? details.hours.status : "No info available";
+            var address = details.location.hasOwnProperty("formattedAddress") ? details.location.formattedAddress : "No info available";
+            var rating = details.hasOwnProperty("rating") ? details.rating  : "No rating available";
+            var likes = details.hasOwnProperty("likes") ? details.likes.count  : "No likes available";
             infowindow.marker = marker;
-            var innerHTML = '<div>';
-            if (place.name) {
-                innerHTML += '<strong>' + place.name + '</strong>';
-            }
-            if (place.formatted_address) {
-                innerHTML += '<br>' + place.formatted_address;
-            }
-            if (place.formatted_phone_number) {
-                innerHTML += '<br>' + place.formatted_phone_number;
-            }
-            if (place.opening_hours) {
-                innerHTML += '<br><br><strong>Hours:</strong><br>' +
-                    place.opening_hours.weekday_text[0] + '<br>' +
-                    place.opening_hours.weekday_text[1] + '<br>' +
-                    place.opening_hours.weekday_text[2] + '<br>' +
-                    place.opening_hours.weekday_text[3] + '<br>' +
-                    place.opening_hours.weekday_text[4] + '<br>' +
-                    place.opening_hours.weekday_text[5] + '<br>' +
-                    place.opening_hours.weekday_text[6];
-            }
-            if (place.photos) {
-                innerHTML += '<br><br><img src="' + place.photos[0].getUrl({
-                    maxHeight: 100,
-                    maxWidth: 200
-                }) + '">';
-            }
-            innerHTML += '</div>';
+            var innerHTML = '<div>' +
+                    '<h2>' + marker.title+ '</h2>' +
+                    '<p>Opening hours: ' + hours + '</p>' +
+                    '<p>phone: ' + phone + '</p>' +
+                    '<p>likes: ' + likes + '</p>' +
+                    '<p>Location: ' + address + '</p>' +
+                    '<p>Rating: ' + rating + '</p>' +
+                '</div>';
             infowindow.setContent(innerHTML);
             infowindow.open(map, marker);
-            // Make sure the marker property is cleared if the infowindow is closed.
             infowindow.addListener('closeclick', function() {
                 infowindow.marker = null;
                 marker.setAnimation(null);
             });
-        }
-    });
+            }).fail(function() {
+            alert("Error in getting place info!")
+        });
+
 }
 
 function toggleBounce(marker) {
