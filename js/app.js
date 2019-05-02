@@ -4,12 +4,36 @@ var map;
 // These are the real estate listings that will be shown to the user.
 // Normally we'd have these in a database instead.
 var locations = [
-  {title: 'Park Ave Penthouse', location: {lat: 40.7713024, lng: -73.9632393}},
-  {title: 'Chelsea Loft', location: {lat: 40.7444883, lng: -73.9949465}},
-  {title: 'Union Square Open Floor Plan', location: {lat: 40.7347062, lng: -73.9895759}},
-  {title: 'East Village Hip Studio', location: {lat: 40.7281777, lng: -73.984377}},
-  {title: 'TriBeCa Artsy Bachelor Pad', location: {lat: 40.7195264, lng: -74.0089934}},
-  {title: 'Chinatown Homey Space', location: {lat: 40.7180628, lng: -73.9961237}}
+  {
+    title: 'City Stars', 
+    location: {lat: 30.072979, lng: 31.34605},
+    place_id : "ChIJo0ecE_gVWBQRGGrouhZFdME"
+  },
+  {
+    title: 'Tivoli Plaza', 
+    location: {lat: 30.0783231, lng: 31.347713},
+    place_id : "ChIJl_chzwU-WBQROiVeNErO5aM"
+  },
+  {
+    title: 'Mentor Graphics', 
+    location: {lat: 30.0894228, lng: 31.3411118},
+    place_id : "ChIJzbfH3PcVWBQR-fSB6t2GGtU"
+  },
+  {
+    title: 'City Center', 
+    location: {lat: 30.0682644, lng: 31.3446851},
+    place_id : "ChIJa31qzKhHWBQR9KlOjzqX0iM"
+  },
+  {
+    title: 'Genena Mall', 
+    location: {lat: 30.0598106197085, lng: 31.3306754197085},
+    place_id : 'ChIJa_i0F2g-WBQRr7xwkbhUzpw'
+  },
+  { 
+    title: 'Tiba Mall', 
+    location: {lat: 30.0675274, lng: 31.33007409999999}, 
+    place_id : 'ChIJj1eMyEE-WBQRqOFFesZ-c7o'
+  }
 ];
 
 // Create a new blank array for all the listing markers.
@@ -19,7 +43,7 @@ function initMap() {
   // Create a styles array to use with the map.
   // Constructor creates a new map - only center and zoom are required.
   map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 40.7413549, lng: -73.9980244},
+    center: {lat: 30.0682644, lng: 31.3306754197085},
     zoom: 13,
     mapTypeControl: false
   });
@@ -89,6 +113,13 @@ function viewModel(){
   {
     location.marker.setIcon(self.defaultIcon);
   }
+
+   self.openNav = function(){
+    document.getElementById("mySidenav").style.width = "350px";
+   }
+   self.closeNav = function(){
+    document.getElementById("mySidenav").style.width = "0px";
+   }
 
   var bounds = new google.maps.LatLngBounds();
   // Extend the boundaries of the map for each marker and display the marker
@@ -161,6 +192,10 @@ function makeMarkerIcon(markerColor) {
     new google.maps.Point(10, 34),
     new google.maps.Size(21,34));
   return markerImage;
+}
+
+function failure() {
+    alert('An error occured while loading the map.');
 } 
 
 
