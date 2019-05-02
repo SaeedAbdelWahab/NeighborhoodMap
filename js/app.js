@@ -157,36 +157,36 @@ function viewModel() {
 
 }
 
-function getPlacesDetailFourSquare(marker, infowindow){
+function getPlacesDetailFourSquare(marker, infowindow) {
     $.ajax({
-            url: 'https://api.foursquare.com/v2/venues/' + marker.id +
+        url: 'https://api.foursquare.com/v2/venues/' + marker.id +
             '?client_id=GPOV5WFOZHMLYRMKWCQO3P1EIWKXDE3ZJLW3MFLDULUJM3JT&client_secret=K2EW5RRMH3INMKGO3DCRY2HQ1DEAB4ZP2LACTGNY2RNFZQZL&v=20190320',
-            dataType: "json"
-        }).done(function (data) {
-            var details = data.response.venue;
-            var phone = details.hasOwnProperty("contact") ? details.contact.phone : "No info available";
-            var hours = details.hasOwnProperty("hours") ? details.hours.status : "No info available";
-            var address = details.location.hasOwnProperty("formattedAddress") ? details.location.formattedAddress : "No info available";
-            var rating = details.hasOwnProperty("rating") ? details.rating  : "No rating available";
-            var likes = details.hasOwnProperty("likes") ? details.likes.count  : "No likes available";
-            infowindow.marker = marker;
-            var innerHTML = '<div>' +
-                    '<h2>' + marker.title+ '</h2>' +
-                    '<p>Opening hours: ' + hours + '</p>' +
-                    '<p>phone: ' + phone + '</p>' +
-                    '<p>likes: ' + likes + '</p>' +
-                    '<p>Location: ' + address + '</p>' +
-                    '<p>Rating: ' + rating + '</p>' +
-                '</div>';
-            infowindow.setContent(innerHTML);
-            infowindow.open(map, marker);
-            infowindow.addListener('closeclick', function() {
-                infowindow.marker = null;
-                marker.setAnimation(null);
-            });
-            }).fail(function() {
-            alert("Error in getting place info!")
+        dataType: "json"
+    }).done(function(data) {
+        var details = data.response.venue;
+        var phone = details.hasOwnProperty("contact") ? details.contact.phone : "No info available";
+        var hours = details.hasOwnProperty("hours") ? details.hours.status : "No info available";
+        var address = details.location.hasOwnProperty("formattedAddress") ? details.location.formattedAddress : "No info available";
+        var rating = details.hasOwnProperty("rating") ? details.rating : "No rating available";
+        var likes = details.hasOwnProperty("likes") ? details.likes.count : "No likes available";
+        infowindow.marker = marker;
+        var innerHTML = '<div>' +
+            '<h2>' + marker.title + '</h2>' +
+            '<p>Opening hours: ' + hours + '</p>' +
+            '<p>phone: ' + phone + '</p>' +
+            '<p>likes: ' + likes + '</p>' +
+            '<p>Location: ' + address + '</p>' +
+            '<p>Rating: ' + rating + '</p>' +
+            '</div>';
+        infowindow.setContent(innerHTML);
+        infowindow.open(map, marker);
+        infowindow.addListener('closeclick', function() {
+            infowindow.marker = null;
+            marker.setAnimation(null);
         });
+    }).fail(function() {
+        alert("Error in getting place info!")
+    });
 
 }
 
